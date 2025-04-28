@@ -1,0 +1,41 @@
+  name: Copy Files
+
+  on:
+    workflow_dispatch: # Allows manual triggering
+      inputs:
+        source_file:
+          description: 'Path to the file in the source repository'
+          required: true
+        destination_file:
+          description: 'Path to the file in the destination repository'
+          required: true
+
+  jobs:
+    copy_file:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout source repository
+          uses: actions/checkout@v3
+          with:
+            repository: Raamasaamy/EasyServiceApp
+            token: ${{ secrets.SOURCE_REPO_PAT }}  # PAT for accessing the source repo
+
+        - name: Checkout destination repository
+          uses: actions/checkout@v3
+          with:
+            repository: Raamasaamy/TestPipe
+            token: ${{ secrets.DEST_REPO_PAT }}  # PAT for accessing the destination repo
+            path: destination-repo  # Checkout to a subdirectory
+
+        - name: Copy file
+          run: |
+            cp ${{ github.workspace }}/${{ github.event.inputs.source_file }} destination-repo/${{ github.event.inputs.destination_file }}
+
+        - name: Commit and push changes
+          run: |
+            cd destination-repo
+            git config --local user.email "actions@github.com"
+            git config --local user.name "GitHub Actions"
+            git add ${{ github.event.inputs.destination_file }}
+            git commit -m "Copied file from source repository"
+            git push origin HEAD:<destination_branch>

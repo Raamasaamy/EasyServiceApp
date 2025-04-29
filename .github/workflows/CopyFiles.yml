@@ -25,7 +25,7 @@ jobs:
       - name: Copy specific files to destination repo
         run: |
           cp submitted_test.ipa destination-repo/
-          cp centitlements.plist destination-repo/entitlements/
+          cp entitlements.plist destination-repo/entitlements/
           
           cd destination-repo
           git add .

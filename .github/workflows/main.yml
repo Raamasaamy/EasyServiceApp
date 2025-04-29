@@ -24,7 +24,6 @@ jobs:
 
       - name: Copy specific files to destination repo
         run: |
-          cp README.md destination-repo/
           cp submitted_test.ipa destination-repo/
           cp centitlements.plist destination-repo/entitlements/
           

@@ -16,7 +16,7 @@
 	<false/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>KR97TMX6TT.*</string>
+		<string>KR97TMX6TT.com.bosch.rbllc2test</string>
 		<string>com.apple.token</string>
 	</array>
 </dict>
